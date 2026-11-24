@@ -77,7 +77,10 @@ demandeurs = (
     .reset_index()
     .sort_values("nb_permis", ascending=False)
 )
-demandeurs.to_csv("demandeurs_78.csv", index=False)
+#Colonnes lisibles et fichier qui s'ouvre bien dans Excel en français
+demandeurs = demandeurs.rename(columns={"Numéro SIREN d'un demandeur avéré en tant que personne morale": "siren"})
+demandeurs = demandeurs[["nom", "famille", "nb_permis", "pas_commences", "en_chantier", "dernier_depot", "fiche", "siren"]]
+demandeurs.to_csv("demandeurs_78.csv", index=False, sep=";", encoding="utf-8-sig")
 
 print(f"{len(df)} permis, {demandeurs.shape[0]} demandeurs\n")
 print(demandeurs["famille"].value_counts().to_string(), "\n")
