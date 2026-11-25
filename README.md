@@ -37,7 +37,7 @@ Chaque ligne renvoie à sa source : numéro du permis et lien vers la fiche publ
 - Dictionnaire des variables :
   https://www.data.gouv.fr/datasets/liste-des-permis-de-construire-et-autres-autorisations-durbanisme?resource_id=c863c9e3-070c-49e2-91de-92c8d58cc807
 
-Le fichier source (378 Mo) n'est pas dans le dépôt : il faut le télécharger depuis data.gouv.fr.
+Le fichier source n'est pas dans le dépôt : il faut le télécharger depuis data.gouv.fr et le site direct est écrit ci-dessus.
 
 ## Lancer
 
