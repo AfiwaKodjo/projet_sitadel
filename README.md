@@ -31,9 +31,11 @@ Chaque ligne renvoie à sa source : numéro du permis et lien vers la fiche publ
 ## Données
 
 - Fichier « Liste des autorisations d'urbanisme créant des locaux non résidentiels », version 2026-10 :
-  https://www.data.gouv.fr/datasets/689c42fa521ccf80ce954f83/
+  https://www.data.gouv.fr/datasets/liste-des-permis-de-construire-et-autres-autorisations-durbanisme?resource_id=8f23d65f-7142-4ac5-94c1-077b028255bf)
 - Note de présentation du ministère :
   https://data.statistiques.developpement-durable.gouv.fr/dido/api/files/52ce326b-45b2-42ce-a2e7-4a60554ef559
+- Dictionnaire des variables :
+  https://www.data.gouv.fr/datasets/liste-des-permis-de-construire-et-autres-autorisations-durbanisme?resource_id=c863c9e3-070c-49e2-91de-92c8d58cc807
 
 Le fichier source (378 Mo) n'est pas dans le dépôt : il faut le télécharger depuis data.gouv.fr.
 
