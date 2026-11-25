@@ -55,4 +55,4 @@ Il faut lancer `TrierDemande.py` en premier : `qui_contacter.py` lit le fichier 
 - Le classement par codes laisse passer quelques erreurs.
 - La base ne donne pas la situation actuelle d'un projet : on indique le dernier état connu, sans seuil inventé.
 
-Mes choix et les limites sont expliqués en détail dans `doc/explication_projet.pdf`.
+Mes choix et les limites sont expliqués en détail dans `docs/explication_projet.pdf`.
