@@ -2,7 +2,7 @@ import pandas as pd
 
 df = pd.read_csv("permis_78_classes.csv", dtype=str)
 
-# On garde seulement les cibles médico-sociales (associations, fondations, public)
+#On garde seulement les cibles médico-sociales (associations, fondations, public)
 df = df[df["famille"].str.contains("médico-social", case=False)].copy()
 df["annee_depot"] = df["Année de dépôt de la DAU"].astype(int)
 df["annee_ouverture"] = df["Date réelle d'ouverture de chantier"].str[:4]
@@ -29,29 +29,24 @@ cibles = (
 )
 
 
-# Pour chaque demandeur, on note ce que dit la base et quel service proposer
-def recommandation(c):
+# Pour chaque demandeur, on note seulement ce que dit la base
+def signal(c):
     if c.nb_commences > 0:
-        return (f"Chantier commencé (dernier en {c.dernier_commence}), fin non connue à ce jour",
-                "Gestion de projet, si le chantier est toujours en cours")
+        return f"Chantier commencé (dernier en {c.dernier_commence}), fin non connue à ce jour"
     if c.nb_autorises > 0:
-        return (f"Autorisé (dernier déposé en {int(c.dernier_autorise)}), aucun début de chantier connu",
-                "Gestion de projet avant le démarrage, si le projet est toujours actif")
+        return f"Autorisé (dernier déposé en {int(c.dernier_autorise)}), aucun début de chantier connu"
     if (c.nb_permis - c.nb_annules) == 0:
-        return "Projets annulés", "À écarter"
-    return "Projets terminés", "Relancer plus tard : stratégie immobilière"
+        return "Projets annulés"
+    return "Projets terminés"
 
 
-cibles[["signal", "service_buddimm"]] = cibles.apply(recommandation, axis=1, result_type="expand")
-
-# Un patrimoine qui bouge beaucoup = besoin d'une direction immobilière régulière
-cibles.loc[cibles.nb_permis >= 3, "service_buddimm"] += " + direction immobilière (patrimoine actif)"
+cibles["signal"] = cibles.apply(signal, axis=1)
 
 cibles = cibles.sort_values(["nb_commences", "nb_autorises", "nb_permis"], ascending=False)
 
 # Colonnes les plus utiles en premier, noms lisibles
 cibles = cibles.rename(columns={"Numéro SIREN d'un demandeur avéré en tant que personne morale": "siren"})
-cibles = cibles[["nom", "famille", "signal", "service_buddimm", "nb_permis", "nb_autorises",
+cibles = cibles[["nom", "famille", "signal", "nb_permis", "nb_autorises",
                  "nb_commences", "nb_annules", "dernier_depot", "fiche", "siren"]]
 
 # sep=";" et utf-8-sig pour que le fichier s'ouvre bien dans Excel en français (colonnes et accents)
@@ -59,4 +54,4 @@ cibles.to_csv("qui_contacter_78.csv", index=False, sep=";", encoding="utf-8-sig"
 
 print(f"{len(cibles)} cibles\n")
 print(cibles["signal"].str.split(" \\(").str[0].value_counts().to_string(), "\n")  # comptage sans l'année
-print(cibles[["nom", "nb_permis", "signal", "service_buddimm"]].to_string(index=False))
+print(cibles[["nom", "nb_permis", "signal"]].to_string(index=False))

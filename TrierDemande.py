@@ -20,6 +20,9 @@ colonnes_utiles = [
 ]
 df = pd.read_csv(fichier, sep=";", dtype=str, usecols=colonnes_utiles)
 
+#le nombre de lignes dans le fichier
+print("Lignes dans le fichier :", len(df))
+
 # On filtre pour ne garder des demandes dans le departement 78, de type PC et avec un SIREN renseigné
 df = df[
     (df["Code du département du lieu des travaux - Code de la zone"] == "78")
